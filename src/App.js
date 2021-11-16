@@ -1,12 +1,13 @@
 import React from 'react';
 
-function App() {
-  const title = 'book';
-  return (
-    <div>
-      <h1> {title} </h1>
-    </div>
-  );
+function Hello() {
+  return <div> Hello Eder</div>;
+}
+
+class App extends React.Component {
+  render() {
+    return <Hello />;
+  }
 }
 
 export default App;
