@@ -1,11 +1,10 @@
 import React from 'react'
 
-const Test = (props) => {
-  console.log(props)
+const Test = ({names, hobby}) => {
   return ( 
     <div>
-    <div> {props.names[0]}</div>
-    <div> {props.hobby[0]}</div>
+    <div> {names[0]}</div>
+    <div> {hobby[0]}</div>
     </div>
    );
 }

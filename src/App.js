@@ -1,25 +1,23 @@
 import React from 'react';
 import Test from './components/test';
 
-function App() {
-  const names = ['eder', 'ben']
-  const hobby = ['code', 'run']
-  const [text, setText] = React.useState('');
+const Search = () => {
+ const [searchTerm, setSearchTerm] = React.useState('')
 
-  function handleChange(event, delta) {
-    setText(event.target.value);
-    console.log(delta);
-  }
+  const handleChange = (event) => {
+   setSearchTerm(event.target.value)
+    
+  };
 
   return (
     <div>
-      <input type="text" onChange={(event) => handleChange(event, 1)} />
-
-      {text}
-
-      <Test names={names} hobby={hobby}/>
+      <label htmlFor="search">Search: </label>
+      <input id="search" type="text" onChange={handleChange} />
+      <p>
+        Searching for <strong>{searchTerm}</strong>.
+      </p>
     </div>
   );
-}
+};
 
-export default App;
+export default Search;
