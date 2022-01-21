@@ -31,14 +31,17 @@ const App = () => {
   );
 };
 
-function Search() {
+const Search = () => {
+  const handleChange = (event) => {
+    console.log(event.target.value);
+  };
   return (
     <div>
       <label> Search: </label>
-      <input type="text" id="search" />
+      <input type="text" id="search" onChange={handleChange} />
     </div>
   );
-}
+};
 
 function List() {
   return (
