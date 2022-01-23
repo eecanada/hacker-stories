@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { screen } from '@testing-library/react';
 
 const App = () => {
   const [searchTerm, setSearchTerm] = React.useState('');
@@ -28,12 +29,13 @@ const App = () => {
 
   const searchedStories = stories.filter((story) =>
     story.title.toLowerCase().includes(searchTerm.toLowerCase())
+
   );
 
   return (
     <div>
       <h1>My Hacker Stories</h1>
-      <Search onSearch={handleSearch} />
+      <Search onSearch={handleSearch}  search={searchTerm} />
       <hr />
 
       <List list={searchedStories} />
@@ -41,11 +43,11 @@ const App = () => {
   );
 };
 
-const Search = ({ onSearch }) => {
+const Search = ({ onSearch, search }) => {
   return (
     <div>
       <label> Search: </label>
-      <input type="text" id="search" onChange={onSearch} />
+      <input value={search} type="text" id="search" onChange={onSearch} />
     </div>
   );
 };
