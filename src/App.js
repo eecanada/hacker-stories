@@ -50,10 +50,10 @@ const App = () => {
 
 const Search = ({ onSearch, search }) => {
   return (
-    <div>
+    <React.Fragment>
       <label> Search: </label>
       <input value={search} type="text" id="search" onChange={onSearch} />
-    </div>
+    </React.Fragment>
   );
 };
 
