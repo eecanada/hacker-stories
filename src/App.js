@@ -1,9 +1,6 @@
 import * as React from 'react';
-import { screen } from '@testing-library/react';
 
 const App = () => {
-  const [searchTerm, setSearchTerm] = React.useState('');
-
   const stories = [
     {
       title: 'React',
@@ -23,19 +20,27 @@ const App = () => {
     },
   ];
 
+  const [searchTerm, setSearchTerm] = React.useState(
+    localStorage.getItem('search') || 'React'
+  );
+
+  React.useEffect(() => {
+    localStorage.setItem('search', searchTerm);
+  }, [searchTerm]);
+
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
 
   const searchedStories = stories.filter((story) =>
     story.title.toLowerCase().includes(searchTerm.toLowerCase())
-
   );
+  console.log(searchedStories, '2');
 
   return (
     <div>
       <h1>My Hacker Stories</h1>
-      <Search onSearch={handleSearch}  search={searchTerm} />
+      <Search onSearch={handleSearch} search={searchTerm} />
       <hr />
 
       <List list={searchedStories} />
