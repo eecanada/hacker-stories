@@ -35,12 +35,18 @@ const App = () => {
   const searchedStories = stories.filter((story) =>
     story.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
-  console.log(searchedStories, '2');
 
   return (
     <div>
       <h1>My Hacker Stories</h1>
-      <Search onSearch={handleSearch} search={searchTerm} />
+
+      <InputWithLabel
+        id="search"
+        label="Search"
+        value={searchTerm}
+        onInputChange={handleSearch}
+      />
+
       <hr />
 
       <List list={searchedStories} />
@@ -48,11 +54,11 @@ const App = () => {
   );
 };
 
-const Search = ({ onSearch, search }) => {
+const InputWithLabel = ({ id, label, type, value, onInputChange }) => {
   return (
     <React.Fragment>
-      <label> Search: </label>
-      <input value={search} type="text" id="search" onChange={onSearch} />
+      <label htmlFor={id}>{label} </label>
+      <input id={id} type={type} value={value} onChange={onInputChange} />
     </React.Fragment>
   );
 };
