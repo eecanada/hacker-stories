@@ -42,10 +42,11 @@ const App = () => {
 
       <InputWithLabel
         id="search"
-        label="Search"
         value={searchTerm}
         onInputChange={handleSearch}
-      />
+      >
+        <strong>Search:</strong>
+      </InputWithLabel>
 
       <hr />
 
@@ -54,14 +55,19 @@ const App = () => {
   );
 };
 
-const InputWithLabel = ({ id, label, type, value, onInputChange }) => {
-  return (
-    <React.Fragment>
-      <label htmlFor={id}>{label} </label>
-      <input id={id} type={type} value={value} onChange={onInputChange} />
-    </React.Fragment>
-  );
-};
+const InputWithLabel = ({
+  id,
+  value,
+  type = 'text',
+  onInputChange,
+  children,
+}) => (
+  <React.Fragment>
+    <label htmlFor={id}>{children}</label>
+    &nbsp;
+    <input id={id} type={type} value={value} onChange={onInputChange} />
+  </React.Fragment>
+);
 
 const List = ({ list }) => {
   return (
