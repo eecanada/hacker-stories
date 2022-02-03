@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 const App = () => {
-  const stories = [
+  const initialStories = [
     {
       title: 'React',
       url: 'https://reactjs.org/',
@@ -21,8 +21,10 @@ const App = () => {
   ];
 
   const [searchTerm, setSearchTerm] = React.useState(
-    localStorage.getItem('search') || 'React'
+    localStorage.getItem('search') || ''
   );
+
+  const [stories, setStories] = React.useState(initialStories);
 
   React.useEffect(() => {
     localStorage.setItem('search', searchTerm);
@@ -35,6 +37,13 @@ const App = () => {
   const searchedStories = stories.filter((story) =>
     story.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const handleRemoveStory = (item) => {
+    const newStories = stories.filter(
+      (story) => item.objectID !== story.objectID
+    );
+    setStories(newStories);
+  };
 
   return (
     <div>
@@ -51,7 +60,7 @@ const App = () => {
 
       <hr />
 
-      <List list={searchedStories} />
+      <List list={searchedStories} onRemoveStory={handleRemoveStory} />
     </div>
   );
 };
@@ -71,6 +80,7 @@ const InputWithLabel = ({
       inputRef.current.focus();
     }
   }, [isFocused]);
+
   return (
     <React.Fragment>
       <label htmlFor={id}>{children}</label>
@@ -86,7 +96,7 @@ const InputWithLabel = ({
   );
 };
 
-const List = ({ list }) => {
+const List = ({ list, onRemoveStory }) => {
   return (
     <ul>
       {list.map((item) => {
@@ -98,6 +108,11 @@ const List = ({ list }) => {
             <span>{item.author}</span>
             <span>{item.num_comments}</span>
             <span>{item.points}</span>
+            <span>
+              <button type="button" onClick={() => onRemoveStory(item)}>
+                Dismiss
+              </button>
+            </span>
           </li>
         );
       })}
