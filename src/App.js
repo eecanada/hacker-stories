@@ -20,23 +20,23 @@ const App = () => {
     },
   ];
 
+  ///STATE
   const [searchTerm, setSearchTerm] = React.useState(
+    //will return null on very first render so state will be empty string
     localStorage.getItem('search') || ''
   );
 
   const [stories, setStories] = React.useState(initialStories);
 
+  ///USE EFFECT
   React.useEffect(() => {
     localStorage.setItem('search', searchTerm);
   }, [searchTerm]);
 
+  ///HANDLERS
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
-
-  const searchedStories = stories.filter((story) =>
-    story.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
   const handleRemoveStory = (item) => {
     const newStories = stories.filter(
@@ -44,6 +44,10 @@ const App = () => {
     );
     setStories(newStories);
   };
+
+  const searchedStories = stories.filter((story) =>
+    story.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div>
@@ -65,6 +69,7 @@ const App = () => {
   );
 };
 
+///INPUT
 const InputWithLabel = ({
   id,
   value,
@@ -73,6 +78,7 @@ const InputWithLabel = ({
   children,
   isFocused,
 }) => {
+  //USE REF
   const inputRef = React.useRef();
 
   React.useEffect(() => {
@@ -84,7 +90,6 @@ const InputWithLabel = ({
   return (
     <React.Fragment>
       <label htmlFor={id}>{children}</label>
-      &nbsp;
       <input
         id={id}
         type={type}
@@ -96,6 +101,7 @@ const InputWithLabel = ({
   );
 };
 
+///LIST
 const List = ({ list, onRemoveStory }) => {
   return (
     <ul>
@@ -110,7 +116,7 @@ const List = ({ list, onRemoveStory }) => {
             <span>{item.points}</span>
             <span>
               <button type="button" onClick={() => onRemoveStory(item)}>
-                Dismiss
+                Delete
               </button>
             </span>
           </li>
